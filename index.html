@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Happy Birthday Simu ❤️</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;text-align:center;color:white;
+ font-family:Arial,sans-serif;
+ background:linear-gradient(135deg,#240b36,#9b2465,#ff8e9e);
+ overflow-x:hidden
+}
+.card{
+ max-width:500px;margin:25px auto;padding:25px 18px;
+ border-radius:25px;background:#ffffff19;
+ border:1px solid #ffffff55;
+ box-shadow:0 10px 35px #0004
+}
+h1{color:#ffd0e8;font-size:36px}
+h2{color:#ffd5e8}
+p{line-height:1.9}
+input,button{
+ padding:13px;border:0;border-radius:12px;
+ font-size:16px;margin:8px
+}
+input{width:85%;text-align:center}
+button{background:#ff5c9b;color:white;font-weight:bold}
+#surprise{display:none}
+.cake{font-size:65px;animation:bounce 2s infinite}
+@keyframes bounce{
+ 50%{transform:translateY(-10px)}
+}
+.photo{
+ width:90%;max-width:330px;border-radius:18px;
+ margin:10px;box-shadow:0 5px 20px #0005
+}
+.fall{
+ position:fixed;top:-30px;z-index:5;
+ pointer-events:none;animation:drop 6s linear forwards
+}
+@keyframes drop{
+ to{transform:translateY(110vh) rotate(500deg);opacity:0}
+}
+.letter{white-space:pre-line;line-height:2}
+</style>
+</head>
+<body>
+<div class="card">
+ <div class="cake">🎂</div>
+ <h1>Happy Birthday, Simu! 💖</h1>
+ <p>তোমার জন্য একটি ছোট্ট সারপ্রাইজ! 🌹</p>
+ <p>পাসওয়ার্ড দিয়ে খুলে দেখো 🔐</p>
+
+ <form id="login">
+  <input id="pass" type="password"
+   placeholder="Enter password" required>
+  <br>
+  <button>Unlock My Surprise 💌</button>
+ </form>
+ <p id="error"></p>
+
+ <div id="surprise">
+  <h2>🎉 শুভ জন্মদিন, সিমু! 🎉</h2>
+
+  <p class="letter">প্রিয় সিমু, ❤️
+
+আজকের এই বিশেষ দিনে তোমার জন্য রইল
+অনেক অনেক ভালোবাসা ও শুভেচ্ছা।
+
+তোমার প্রতিটি সকাল শুরু হোক হাসি দিয়ে,
+প্রতিটি স্বপ্ন পূরণ হোক,
+আর তোমার জীবন ভরে উঠুক সুখ ও আনন্দে।
+
+সবসময় নিজের মতো সুন্দর থেকো,
+মন খুলে হাসো এবং অনেক ভালো থেকো।
+তোমার এই দিনটি হয়ে উঠুক
+অনেক সুন্দর ও স্মরণীয়। 🌸
+
+Happy Birthday, My Special Person! 🎂💗</p>
+
+  <img class="photo"
+   src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=700&q=80"
+   alt="Birthday cake">
+
+  <p>🌹 তোমার জন্য একগুচ্ছ গোলাপ 🌹</p>
+
+  <img class="photo"
+   src="https://images.unsplash.com/photo-1494972308805-463bc619d34e?auto=format&fit=crop&w=700&q=80"
+   alt="Pink roses">
+
+  <h2>With lots of love ❤️</h2>
+  <h3>— Nazmul 💌</h3>
+
+  <button id="music">🎵 Play Birthday Music</button>
+  <p>💗 🌸 ✨ 🎉 🌹 💖</p>
+ </div>
+</div>
+
+<script>
+const login=document.getElementById('login');
+const surprise=document.getElementById('surprise');
+const error=document.getElementById('error');
+let audio,playing=false,timer;
+const notes=[523,523,587,523,698,659,523,523,587,523,784,698];
+let i=0;
+
+login.addEventListener('submit',function(e){
+ e.preventDefault();
+ if(document.getElementById('pass').value==='1234'){
+  login.style.display='none';
+  error.textContent='';
+  surprise.style.display='block';
+  rain();
+  surprise.scrollIntoView({behavior:'smooth'});
+ }else{
+  error.textContent='পাসওয়ার্ড ভুল হয়েছে ❤️';
+ }
+});
+
+function rain(){
+ const symbols=['💗','🌹','🌸','✨','🎉','💕'];
+ let count=0;
+ const interval=setInterval(()=>{
+  if(count++>60){clearInterval(interval);return}
+  const el=document.createElement('span');
+  el.className='fall';
+  el.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+  el.style.left=Math.random()*100+'vw';
+  el.style.fontSize=(16+Math.random()*18)+'px';
+  el.style.animationDuration=(4+Math.random()*4)+'s';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),8500);
+ },180);
+}
+
+document.getElementById('music').onclick=async function(){
+ try{
+  if(playing){
+   clearTimeout(timer);
+   await audio.suspend();
+   playing=false;
+   this.textContent='▶️ Resume Birthday Music';
+   return;
+  }
+  const AC=window.AudioContext||window.webkitAudioContext;
+  if(!AC){alert('এই ব্রাউজারে মিউজিক চালানো যাচ্ছে না');return}
+  audio=audio||new AC();
+  await audio.resume();
+  playing=true;
+  this.textContent='⏸️ Pause Music';
+  function play(){
+   if(!playing)return;
+   const osc=audio.createOscillator();
+   const gain=audio.createGain();
+   osc.type='sine';
+   osc.frequency.value=notes[i++%notes.length];
+   gain.gain.setValueAtTime(.001,audio.currentTime);
+   gain.gain.linearRampToValueAtTime(.08,audio.currentTime+.05);
+   gain.gain.linearRampToValueAtTime(.001,audio.currentTime+.4);
+   osc.connect(gain);gain.connect(audio.destination);
+   osc.start();osc.stop(audio.currentTime+.42);
+   timer=setTimeout(play,450);
+  }
+  play();
+ }catch(e){alert('মিউজিক চালু করা যায়নি। আবার চেষ্টা করো।')}
+};
+</script>
+</body>
+</html>
