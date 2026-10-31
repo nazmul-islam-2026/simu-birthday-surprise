@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffd6e6">
+<title>Happy Birthday Urmi ❤️</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;font-family:Arial,sans-serif;text-align:center;
+ color:#542440;
+ background:linear-gradient(145deg,#ffd6e6,#fff4d8);
+ min-height:100vh;overflow-x:hidden
+}
+.scene{
+ display:none;min-height:100vh;padding:35px 16px;
+ align-items:center;justify-content:center
+}
+.scene.active{display:flex;animation:fade .5s}
+.card{width:100%;max-width:430px;margin:auto}
+h1{font-size:43px;line-height:1.1}
+h2{font-size:29px}
+p{line-height:1.8}
+.pink{color:#ff3980}
+button{
+ border:0;border-radius:30px;padding:14px 23px;
+ background:#ff4385;color:white;font-size:14px;
+ font-weight:bold;cursor:pointer;margin:10px 4px;
+ box-shadow:0 5px 15px #e85b9040
+}
+.gift{
+ font-size:100px;margin:25px;cursor:pointer;
+ animation:bob 1.5s infinite
+}
+.cake{font-size:100px;margin:25px;cursor:pointer}
+.heart{font-size:65px;animation:heart .8s}
+.balloon-area{
+ display:grid;grid-template-columns:repeat(5,1fr);
+ gap:3px;margin:35px 0 15px
+}
+.balloon{
+ height:105px;position:relative;
+ background:transparent;box-shadow:none;
+ padding:0;margin:0;border-radius:0;
+ overflow:visible
+}
+.balloon:before{
+ content:"";position:absolute;left:50%;top:0;
+ transform:translateX(-50%);
+ width:39px;height:53px;
+ border-radius:50% 50% 45% 45%;
+ background:var(--color);
+ box-shadow:inset -5px -5px #00000012,inset 5px 4px #ffffff66;
+}
+.balloon:after{
+ content:"";position:absolute;top:52px;left:50%;
+ height:30px;border-left:1px solid #b88a9d
+}
+.balloon.popped:before{
+ animation:burst .3s forwards
+}
+.balloon.popped:after{display:none}
+.shooter{font-size:24px;background:#b92e70}
+.flying-arrow{
+ position:fixed;z-index:100;left:0;top:0;
+ font-size:35px;line-height:1;
+ pointer-events:none;
+ transition:transform .48s cubic-bezier(.2,.8,.3,1);
+}
+.pop{
+ position:absolute;z-index:5;left:50%;top:8px;
+ transform:translateX(-50%);font-size:27px;
+ animation:burst .45s forwards;pointer-events:none
+}
+#wishes{
+ background:#fffafd;border-radius:18px;padding:15px;
+ margin-top:15px;font-size:14px;line-height:1.8;
+ box-shadow:0 5px 20px #d8588b20
+}
+#count{font-size:12px;color:#a05b7e}
+.letter{
+ background:#fffafd;padding:22px;border-radius:20px;
+ line-height:1.9
+}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes bob{50%{transform:translateY(-8px)}}
+@keyframes heart{50%{transform:scale(1.3)}}
+@keyframes burst{to{transform:translateX(-50%) scale(1.8);opacity:0}}
+.confetti{
+ position:fixed;top:-15px;z-index:150;
+ animation:fall 3s linear forwards;pointer-events:none
+}
+@keyframes fall{to{transform:translateY(110vh) rotate(600deg);opacity:0}}
+@media(max-width:360px){
+ h1{font-size:35px}.balloon:before{width:32px;height:46px}
+ .balloon{height:92px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- SCENE 1 -->
+<section class="scene active" id="s0">
+ <div class="card">
+  <p>🌙 ✨ MIDNIGHT BIRTHDAY SURPRISE ✨</p>
+  <h1><span class="pink">12:00 AM</span></h1>
+  <p>Raat ke 12 baj gaye! 🌙<br>
+  Ei chotto surprise shudhu tomar jonno, Urmi. ❤️</p>
+  <button onclick="go(1);confetti(25)">
+   HAPPY BIRTHDAY URMI 🎂<br>
+   TAP TO OPEN YOUR GIFT 🎁
+  </button>
+ </div>
+</section>
+
+<!-- SCENE 2 -->
+<section class="scene" id="s1">
+ <div class="card">
+  <p>🎀 A SPECIAL SURPRISE 🎀</p>
+  <h2>A Little Gift For <span class="pink">Urmi</span></h2>
+  <div class="gift" onclick="openGift()">🎁</div>
+  <p>Tap the gift to open your surprise ❤️</p>
+  <button onclick="openGift()">OPEN MY GIFT</button>
+ </div>
+</section>
+
+<!-- SCENE 3 -->
+<section class="scene" id="s2">
+ <div class="card">
+  <p>🎉 IT'S YOUR SPECIAL DAY 🎉</p>
+  <h1>Happy Birthday<br><span class="pink">Urmi!</span> ❤️</h1>
+  <p>Tomar protita din hashi, shukh ar bhalobashay bhore uthuk. 🌸</p>
+  <div class="heart">💖</div>
+  <button onclick="go(3)">LET'S CELEBRATE 🎂</button>
+ </div>
+</section>
+
+<!-- SCENE 4 -->
+<section class="scene" id="s3">
+ <div class="card">
+  <h2>Make A Wish, Urmi! 🎂</h2>
+  <p>Cake-e tap koro, tarpor surprise dekho. 💗</p>
+  <div class="cake" id="cake" onclick="blowCake()">🎂</div>
+  <p id="cakeMsg">Close your eyes and make a wish! ✨</p>
+  <button onclick="blowCake()">MY WISH IS MADE 🎉</button>
+ </div>
+</section>
+
+<!-- SCENE 5 -->
+<section class="scene" id="s4">
+ <div class="card">
+  <p>💘 A LITTLE CUPID SURPRISE 💘</p>
+  <h2>Pop The Balloons, <span class="pink">Urmi!</span></h2>
+  <p>SHOOT button-e tap koro. Tीर ure giye balloon-e lagbe! 🏹</p>
+
+  <div class="heart">💖</div>
+
+  <div class="balloon-area" id="balloons"></div>
+
+  <button class="shooter" id="shoot" onclick="shootNext()">
+   🏹 SHOOT!
+  </button>
+
+  <div id="wishes">
+   🎁 Pop each balloon to reveal a special wish!
+  </div>
+
+  <p id="count">0 / 5 balloons popped</p>
+
+  <button id="next" style="display:none" onclick="go(5)">
+   READ YOUR WISHES 💌
+  </button>
+ </div>
+</section>
+
+<!-- SCENE 6 -->
+<section class="scene" id="s5">
+ <div class="card">
+  <h2>Birthday Wishes For You 💌</h2>
+  <div class="letter">
+   🌸 May your days be full of happiness.<br><br>
+   💖 May you always feel loved and appreciated.<br><br>
+   ✨ May all your beautiful dreams come true.<br><br>
+   🎂 May this birthday bring you wonderful memories.<br><br>
+   ❤️ Keep smiling and shining, Urmi!
+  </div>
+  <button onclick="go(6)">OPEN YOUR LETTER 💌</button>
+ </div>
+</section>
+
+<!-- SCENE 7 -->
+<section class="scene" id="s6">
+ <div class="card">
+  <div class="letter">
+   <h2>Happy Birthday, My Urmi! ❤️</h2>
+   <p>My Dearest Urmi,</p>
+   <p>Tomar hashi amar kache onek special. Tumi shobshomoy bhalo theko, hashi-khushi theko. Tomar jibone shanti, shukh ar onek shundor muhurto ashuk. 🌹</p>
+   <p>Ajker din-ta hok tomar motoi shundor. Tomar shob shopno puron hok. ❤️</p>
+   <p><b>With lots of love 💗</b></p>
+  </div>
+  <button onclick="restart()">CELEBRATE AGAIN 🎉</button>
+ </div>
+</section>
+
+<script>
+let popped=0;
+let shooting=false;
+
+const colors=[
+ "#ff6598","#b39bff","#63cfc3",
+ "#ffd05a","#f36b70"
+];
+
+const wishes=[
+ "💌 Urmi, tomar hashi shobkichu shundor kore dey. ❤️",
+ "💌 Tomar jibone shobshomoy shukh ar shanti thakuk. 🌸",
+ "💌 Tomar protita shopno ekdin puron hok. ✨",
+ "💌 Tumi shobshomoy bhalobasha ar shomman pao. 💖",
+ "💌 Happy Birthday Urmi! Tomar din-ta magic-er moto hok. 🎂"
+];
+
+function go(n){
+ document.querySelectorAll(".scene").forEach(s=>{
+  s.classList.remove("active");
+ });
+ document.getElementById("s"+n).classList.add("active");
+ window.scrollTo(0,0);
+ if(n===2)confetti(35);
+}
+
+function openGift(){
+ confetti(35);
+ go(2);
+}
+
+function blowCake(){
+ document.getElementById("cake").textContent="🎉";
+ document.getElementById("cakeMsg").textContent=
+ "Wish made! Happy Birthday Urmi! ❤️";
+ confetti(25);
+ setTimeout(()=>go(4),700);
+}
+
+const area=document.getElementById("balloons");
+
+colors.forEach((color,i)=>{
+ const b=document.createElement("button");
+ b.className="balloon";
+ b.style.setProperty("--color",color);
+ b.setAttribute("aria-label","Balloon "+(i+1));
+ b.dataset.index=i;
+ area.appendChild(b);
+});
+
+function shootNext(){
+ if(shooting)return;
+
+ const balloons=[...document.querySelectorAll(".balloon")];
+ const target=balloons.find(b=>!b.classList.contains("popped"));
+
+ if(!target)return;
+
+ shooting=true;
+
+ const launcher=document.getElementById("shoot");
+ const start=launcher.getBoundingClientRect();
+ const end=target.getBoundingClientRect();
+
+ // The arrow starts at the SHOOT button and travels
+ // to the actual position of the selected balloon.
+ const arrow=document.createElement("div");
+ arrow.className="flying-arrow";
+ arrow.textContent="➤";
+
+ const sx=start.left+start.width/2;
+ const sy=start.top+start.height/2;
+ const tx=end.left+end.width/2;
+ const ty=end.top+end.height/2;
+
+ const dx=tx-sx;
+ const dy=ty-sy;
+ const angle=Math.atan2(dy,dx)*180/Math.PI;
+
+ arrow.style.left=sx+"px";
+ arrow.style.top=sy+"px";
+ arrow.style.transform="translate(-50%,-50%) rotate("+angle+"deg)";
+ document.body.appendChild(arrow);
+
+ requestAnimationFrame(()=>{
+  arrow.style.transform=
+   "translate(calc(-50% + "+dx+"px),calc(-50% + "+dy+"px)) rotate("+angle+"deg)";
+ });
+
+ // Only pop the balloon after the arrow reaches it.
+ setTimeout(()=>{
+  arrow.remove();
+  popBalloon(target,Number(target.dataset.index));
+  shooting=false;
+ },500);
+}
+
+function popBalloon(balloon,index){
+ if(balloon.classList.contains("popped"))return;
+
+ balloon.classList.add("popped");
+
+ const burst=document.createElement("span");
+ burst.className="pop";
+ burst.textContent="💥";
+ balloon.appendChild(burst);
+
+ popped++;
+
+ const box=document.getElementById("wishes");
+ if(popped===1)box.innerHTML="";
+
+ const line=document.createElement("p");
+ line.textContent=wishes[index];
+ box.appendChild(line);
+
+ document.getElementById("count").textContent=
+ popped+" / 5 balloons popped";
+
+ confetti(10);
+
+ if(popped===5){
+  document.getElementById("shoot").textContent="💖 ALL POPPED!";
+  document.getElementById("shoot").disabled=true;
+  document.getElementById("next").style.display="inline-block";
+ }
+}
+
+function confetti(amount){
+ const emojis=["💗","✨","🎉","💕","🌸"];
+
+ for(let i=0;i<amount;i++){
+  const el=document.createElement("span");
+  el.className="confetti";
+  el.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+  el.style.left=Math.random()*100+"vw";
+  el.style.animationDuration=(2+Math.random()*2)+"s";
+  el.style.fontSize=(12+Math.random()*15)+"px";
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),4200);
+ }
+}
+
+function restart(){
+ popped=0;
+ shooting=false;
+ document.getElementById("wishes").innerHTML=
+ "🎁 Pop each balloon to reveal a special wish!";
+ document.getElementById("count").textContent="0 / 5 balloons popped";
+ document.getElementById("next").style.display="none";
+ document.getElementById("shoot").disabled=false;
+ document.getElementById("shoot").textContent="🏹 SHOOT!";
+
+ document.querySelectorAll(".balloon").forEach(b=>{
+  b.classList.remove("popped");
+  const burst=b.querySelector(".pop");
+  if(burst)burst.remove();
+ });
+
+ go(0);
+}
+</script>
+</body>
+</html>
